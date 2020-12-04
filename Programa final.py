@@ -141,11 +141,10 @@ def apresentar():
 
     try:
         x = int(input("Luta: "))
+        lutas[x-1].apresentacao(lutas[x-1].lutador1,lutas[x-1].lutador2)
     except:
         print("Número inválido!")
         return None
-
-    lutas[x-1].apresentacao(lutas[x-1].lutador1,lutas[x-1].lutador2)
 
 
 def combater():
@@ -162,11 +161,10 @@ def combater():
 
     try:
         x = int(input("Luta: "))
+        lutas[x-1].combate(lutas[x-1].lutador1,lutas[x-1].lutador2)
     except:
         print("Número inválido!")
         return None
-
-    lutas[x-1].combate(lutas[x-1].lutador1,lutas[x-1].lutador2)
         
 def mostrar_historico():
 
@@ -181,11 +179,10 @@ def mostrar_historico():
 
     try:
         x = int(input("-> "))
+        lutadores[x-1].historico()
     except:
         print("Número inválido!")
         return None
-
-    lutadores[x-1].historico()
 
 
 def main():
