@@ -11,6 +11,8 @@ def main():
     print("5 - Ver o histórico de um lutador")
     print("6 - Sair")
     
+    entrada = int(input('-> '))
+    
     if entrada == 1:
         cadastra_lutador()
 
