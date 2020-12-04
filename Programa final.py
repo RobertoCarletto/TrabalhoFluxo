@@ -9,11 +9,11 @@ class Lutador:
 
     def __init__(self,nome,peso,forca):
 
-        if not isinstance(self.peso,float):
+        if not isinstance(peso,float):
             print("Peso inválido!")
             return None
 
-        if not isinstance(self.forca,int) or self.forca < 0 or self.forca > 10:
+        if not isinstance(forca,int) or forca < 0 or forca > 10:
             print("Força inválida!")
             return None
 
