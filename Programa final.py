@@ -2,36 +2,51 @@ from random import randint
 lutadores = []
 lutas = []
 class Lutador:
+
     vitorias = 0
     derrotas = 0
     empates = 0
+
     def __init__(self,nome,peso,forca):
+
+        if not isinstance(self.peso,float):
+            print("Peso inválido!")
+            return None
+
+        if not isinstance(self.forca,int) or self.forca < 0 or self.forca > 10:
+            print("Força inválida!")
+            return None
+
         self.nome = nome
         self.peso = peso
         self.forca = forca
-        if not isinstance(self.peso,float):
-            print("Peso inválido!")
-        if not isinstance(self.forca,int) or self.forca < 0 or self.forca > 10:
-            print("Força inválida!")
+        
     def vitoria(self):
         self.vitorias += 1
+
     def derrota(self):
         self.derrotas += 1
+
     def empate(self):
         self.empates += 1
+
     def historico(self):
         print(self.vitorias,'vitórias')
         print(self.derrotas,'derrotas')
         print(self.empates,'empates')
 
 class Luta:
+
     def __init__(self,lutador1,lutador2):
-        if not isinstance(lutador1,object) or not isinstance(lutador2,object):
+
+        if not isinstance(lutador1,Lutador) or not isinstance(lutador2,Lutador):
             print("Luta inválida!")
             return None
+
         if abs(lutador1.peso - lutador2.peso) > 5:
             print('Luta inválida, os combatentes são de categorias diferentes.')
-            return None
+            raise ValueError
+
         self.lutador1 = lutador1
         self.lutador2 = lutador2
 
@@ -49,95 +64,127 @@ class Luta:
         a2 = lutador2.forca + randint(0,5)
         print("O ataque do",lutador1.nome,"é de",a1)
         print("O ataque do",lutador2.nome,"é de",a2)
+
         if a1 > a2:
             lutador1.vitoria()
             lutador2.derrota()
             print(lutador1.nome,'venceu!')
+
         elif a1 < a2:
             lutador2.vitoria()
             lutador1.derrota()
             print(lutador2.nome,'venceu!')
+
         elif a1 == a2:
             lutador1.empate()
             lutador2.empate()
             print('Empate!')
 
 def cadastra_lutador():
+
     try:
         nome = input("Insira o nome do lutador: ")
+
         for i in lutadores:
             if i.nome == nome:
                 print("Este nome já está sendo utilizado!")
                 return None
         peso = float(input("Insira o peso do lutador em quilos: "))
         forca = int(input("Insira a força do lutador numa escala de 0 a 10: "))
+
     except :
         print("Valor inválido!")
         return None
+
     lutadores.append(Lutador(nome,peso,forca))
     print('')
     print("Cadastro completo.")
 
 def criar_luta():
+
     if len(lutadores) < 2:
         print("Não há lutadores suficentes cadastrados!")
         return None
+
     print("Escolha os números dos lutadores:")
+
     for i in range(len(lutadores)):
         print(i+1,'-',lutadores[i].nome)
+
     try:
         x = int(input("Primeiro lutador: "))
         y = int(input("Segundo lutador: "))
     except:
         print("Número inválido!")
         return None
+
     lutador1 = lutadores[x-1]
     lutador2 = lutadores[y-1]
-    lutas.append(Luta(lutador1,lutador2))
+
+    try:
+        lutas.append(Luta(lutador1,lutador2))
+
+    except ValueError:
+        return None
 
 def apresentar():
+
     if len(lutas) == 0:
         print("Não há lutas agendadas!")
         return None
+
     print("Escolha o número da luta:")
+
     for i in range(len(lutas)):
         c1,c2 = lutas[i].combatentes()
         print(i+1,'-',c1,'VS',c2)
+
     try:
         x = int(input("Luta: "))
     except:
         print("Número inválido!")
         return None
+
     lutas[x-1].apresentacao(lutas[x-1].lutador1,lutas[x-1].lutador2)
 
 
 def combater():
+
     if len(lutas) == 0:
         print("Não há lutas agendadas!")
         return None
+
     print("Escolha o número da luta:")
+
     for i in range(len(lutas)):
         c1,c2 = lutas[i].combatentes()
         print(i+1,'-',c1,'VS',c2)
+
     try:
         x = int(input("Luta: "))
     except:
         print("Número inválido!")
         return None
+
     lutas[x-1].combate(lutas[x-1].lutador1,lutas[x-1].lutador2)
         
 def mostrar_historico():
+
     if len(lutadores) == 0:
         print("Não há lutadores cadastrados!")
         return None
+
     print("Escolha o número do lutador:")
+
     for i in range(len(lutadores)):
         print(i+1,'-',lutadores[i].nome)
+
     try:
         x = int(input("-> "))
     except:
         print("Número inválido!")
         return None
+
     lutadores[x-1].historico()
 
 
@@ -150,6 +197,7 @@ def main():
     print("5 - Ver o histórico de um lutador")
     print("6 - Sair")
     print('')
+
     try:
         entrada = int(input('-> '))
         if entrada > 6 or entrada < 1:
@@ -158,20 +206,28 @@ def main():
         print("Entrada inválida!")
         print('')
         return None
+
     print('')
     print('')
+
     if entrada == 1:
         cadastra_lutador()
+
     elif entrada == 2:
         criar_luta()
+
     elif entrada == 3:
         apresentar()
+
     elif entrada == 4:
         combater()       
+
     elif entrada == 5:
         mostrar_historico()
+
     elif entrada == 6:
         exit()
+
     print('')
     print('')
     print('')
