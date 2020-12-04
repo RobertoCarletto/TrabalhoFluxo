@@ -114,17 +114,18 @@ def criar_luta():
     try:
         x = int(input("Primeiro lutador: "))
         y = int(input("Segundo lutador: "))
-    except:
-        print("Número inválido!")
-        return None
 
-    lutador1 = lutadores[x-1]
-    lutador2 = lutadores[y-1]
+        if x <= 0 or y <= 0:
+            raise ValueError
 
-    try:
+        lutador1 = lutadores[x-1]
+        lutador2 = lutadores[y-1]
         lutas.append(Luta(lutador1,lutador2))
+        print('')
+        print("Luta agendada!")
 
-    except ValueError:
+    except :
+        print("Número inválido!")
         return None
 
 def apresentar():
@@ -141,6 +142,8 @@ def apresentar():
 
     try:
         x = int(input("Luta: "))
+        if x <= 0:
+            raise ValueError
         lutas[x-1].apresentacao(lutas[x-1].lutador1,lutas[x-1].lutador2)
     except:
         print("Número inválido!")
@@ -161,7 +164,10 @@ def combater():
 
     try:
         x = int(input("Luta: "))
+        if x <= 0:
+            raise ValueError
         lutas[x-1].combate(lutas[x-1].lutador1,lutas[x-1].lutador2)
+        del lutas[x-1]
     except:
         print("Número inválido!")
         return None
@@ -179,6 +185,9 @@ def mostrar_historico():
 
     try:
         x = int(input("-> "))
+        if x <= 0:
+            raise ValueError
+        print("O hisórico do lutador",lutadores[x-1].nome,"é:")
         lutadores[x-1].historico()
     except:
         print("Número inválido!")
