@@ -53,31 +53,31 @@ class Luta:
     def combatentes(self):
         return self.lutador1.nome,self.lutador2.nome
     
-    def apresentacao(self,lutador1,lutador2):
-        print(lutador1.nome,'pesa',lutador1.peso,'e tem um cartel de:')
-        lutador1.historico()
-        print(lutador2.nome,'pesa',lutador2.peso,'e tem um cartel de:')
-        lutador2.historico()
+    def apresentacao(self):
+        print(self.lutador1.nome,'pesa',self.lutador1.peso,'e tem um cartel de:')
+        self.lutador1.historico()
+        print(self.lutador2.nome,'pesa',self.lutador2.peso,'e tem um cartel de:')
+        self.lutador2.historico()
         
-    def combate(self,lutador1,lutador2):
-        a1 = lutador1.forca + randint(0,5)
-        a2 = lutador2.forca + randint(0,5)
-        print("O ataque do",lutador1.nome,"é de",a1)
-        print("O ataque do",lutador2.nome,"é de",a2)
+    def combate(self):
+        a1 = self.lutador1.forca + randint(0,5)
+        a2 = self.lutador2.forca + randint(0,5)
+        print("O ataque do",self.lutador1.nome,"é de",a1)
+        print("O ataque do",self.lutador2.nome,"é de",a2)
 
         if a1 > a2:
-            lutador1.vitoria()
-            lutador2.derrota()
-            print(lutador1.nome,'venceu!')
+            self.lutador1.vitoria()
+            self.lutador2.derrota()
+            print(self.lutador1.nome,'venceu!')
 
         elif a1 < a2:
-            lutador2.vitoria()
-            lutador1.derrota()
-            print(lutador2.nome,'venceu!')
+            self.lutador2.vitoria()
+            self.lutador1.derrota()
+            print(self.lutador2.nome,'venceu!')
 
         elif a1 == a2:
-            lutador1.empate()
-            lutador2.empate()
+            self.lutador1.empate()
+            self.lutador2.empate()
             print('Empate!')
 
 def cadastra_lutador():
@@ -144,7 +144,7 @@ def apresentar():
         x = int(input("Luta: "))
         if x <= 0:
             raise ValueError
-        lutas[x-1].apresentacao(lutas[x-1].lutador1,lutas[x-1].lutador2)
+        lutas[x-1].apresentacao()
     except:
         print("Número inválido!")
         return None
@@ -166,7 +166,7 @@ def combater():
         x = int(input("Luta: "))
         if x <= 0:
             raise ValueError
-        lutas[x-1].combate(lutas[x-1].lutador1,lutas[x-1].lutador2)
+        lutas[x-1].combate()
         del lutas[x-1]
     except:
         print("Número inválido!")
